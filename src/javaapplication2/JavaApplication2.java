@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.Collections;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Document;
@@ -81,13 +82,17 @@ public class JavaApplication2
             
             Roster roster = new Roster(code.getNodeValue(),date.getNodeValue(),dutyType);
             rostersArrayList.add(roster);
-            //TODO sort by date
+            
         }
+        
+        //TODO sort by date
+        Collections.sort(rostersArrayList);
         
         for(int i=0; i< rostersArrayList.size(); i++)
         {
             Roster ros = rostersArrayList.get(i);
-            System.out.println(ros.getCode()+"\t"+ros.getDuty()+" "+RosterTypeEnum.CALL.getLabel(ros.getDuty()) +"\t "+ros.getDate());
+            System.out.format(ros.getCode()+"\t"+ros.getDuty()+" "+RosterTypeEnum.CALL.getLabel(ros.getDuty()) +"\t "+ros.getDate());
+            System.out.println();
         }
         
         }catch(Exception ex)
@@ -98,4 +103,3 @@ public class JavaApplication2
     
 }
 
-//http://stackoverflow.com/questions/5927109/sort-objects-in-arraylist-by-date

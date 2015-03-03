@@ -8,7 +8,7 @@ import java.util.Date;
 import java.util.Locale;
 
 
-public class Roster 
+public class Roster implements Comparable<Roster>
 {
     private String code;
     private Date date;
@@ -66,6 +66,13 @@ public class Roster
     public void setDuty(int duty) 
     {
         this.duty = duty;
+    }
+
+    @Override
+    public int compareTo(Roster o) 
+    {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return getDate().compareTo(o.getDate());
     }
         
 }
