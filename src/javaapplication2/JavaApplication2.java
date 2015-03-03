@@ -7,6 +7,7 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.ArrayList;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Document;
@@ -50,6 +51,10 @@ public class JavaApplication2
         
         NodeList rostersList = root.getElementsByTagName("roster");
         System.out.println("Crew\tDuty Type\tDate");
+        
+        ArrayList<Roster> rostersArrayList = new ArrayList<Roster>();
+        int dutyType;
+        
         for(int i=0; i< rostersList.getLength(); i++) //for each roster
         {
             Element ele = (Element) rostersList.item(i); //get one element from roster's list
@@ -70,11 +75,19 @@ public class JavaApplication2
             //System.out.println(RosterTypeEnum.ONDUTY); //prints ONDUTY
             //System.out.println(RosterTypeEnum.CALL.getLabel(1));
             //System.out.println(RosterTypeEnum.CALL.getLabel(10));
-            int dutyType= Integer.parseInt(duty.getNodeValue().trim());
-            System.out.println(code.getNodeValue()+"\t"+duty.getNodeValue()+" "+RosterTypeEnum.CALL.getLabel(dutyType) +"\t "+date.getNodeValue());
-            System.out.println();
+            dutyType= Integer.parseInt(duty.getNodeValue().trim());
+            //System.out.println(code.getNodeValue()+"\t"+duty.getNodeValue()+" "+RosterTypeEnum.CALL.getLabel(dutyType) +"\t "+date.getNodeValue());
+            //System.out.println();
             
+            Roster roster = new Roster(code.getNodeValue(),date.getNodeValue(),dutyType);
+            rostersArrayList.add(roster);
             //TODO sort by date
+        }
+        
+        for(int i=0; i< rostersArrayList.size(); i++)
+        {
+            Roster ros = rostersArrayList.get(i);
+            System.out.println(ros.getCode()+"\t"+ros.getDuty()+" "+RosterTypeEnum.CALL.getLabel(ros.getDuty()) +"\t "+ros.getDate());
         }
         
         }catch(Exception ex)
@@ -85,4 +98,4 @@ public class JavaApplication2
     
 }
 
-
+//http://stackoverflow.com/questions/5927109/sort-objects-in-arraylist-by-date
